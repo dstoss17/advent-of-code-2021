@@ -22,7 +22,7 @@ MAKEFLAGS += --no-builtin-rules  # disable the built-in rules
 MAKEFLAGS += --silent            # disable most output
 
 # currently selected build tool
-DEFAULT_BUILD_TOOL := make
+DEFAULT_BUILD_TOOL := ninja
 BUILD_TOOL ?= $(DEFAULT_BUILD_TOOL)
 
 # High-level options
