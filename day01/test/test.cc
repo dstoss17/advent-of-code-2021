@@ -18,15 +18,26 @@ constexpr bool kVerbose = true;
 constexpr bool kVerbose = false;
 #endif
 
+std::string example = "199\n"
+                      "200\n"
+                      "208\n"
+                      "210\n"
+                      "200\n"
+                      "207\n"
+                      "240\n"
+                      "269\n"
+                      "260\n"
+                      "263";
+
 TEST(Day01, ExampleOnePartOne) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part1(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part1(in, kVerbose), "7");
 }
 
 TEST(Day01, ExampleOnePartTwo) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part2(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part2(in, kVerbose), "5");
 }
 
