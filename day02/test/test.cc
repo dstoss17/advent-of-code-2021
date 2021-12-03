@@ -18,15 +18,22 @@ constexpr bool kVerbose = true;
 constexpr bool kVerbose = false;
 #endif
 
+std::string example = "forward 5\n"
+                      "down 5\n"
+                      "forward 8\n"
+                      "up 3\n"
+                      "down 8\n"
+                      "forward 2";
+
 TEST(Day02, ExampleOnePartOne) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part1(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part1(in, kVerbose), "150");
 }
 
 TEST(Day02, ExampleOnePartTwo) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part2(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part2(in, kVerbose), "900");
 }
 
