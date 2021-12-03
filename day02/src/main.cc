@@ -28,28 +28,24 @@ struct Command {
 
 std::istream& operator>>(std::istream& in, Command& command)
 {
-  std::string line;
-  std::getline(in, line);
-
-  std::istringstream iss(line);
-  std::string direction;
-  iss >> direction >> command.mag;
-  if (direction[0] == 'f') {
+  char c;
+  in >> c;
+  if (c == 'f') {
     command.dir = Direction::kForward;
+    in.ignore(7);
   }
-  else if (direction[0] == 'u') {
+  else if (c == 'u') {
     command.dir = Direction::kUp;
+    in.ignore(2);
   }
   else {
     command.dir = Direction::kDown;
+    in.ignore(4);
   }
 
-  return in;
-}
+  in >> command.mag;
 
-std::vector<Command> read_commands(std::istream& in)
-{
-  return aoc::read_in<Command>(in);
+  return in;
 }
 
 Point execute_commands(const std::vector<Command>& commands)
@@ -109,7 +105,7 @@ Point execute_commands_steered(const std::vector<Command>& commands)
 namespace aoc {
 
 std::string part1(std::istream& in, bool verbose) {
-  auto commands = read_commands(in);
+  auto commands = read_in<Command>(in);
   auto location = execute_commands(commands);
   std::ostringstream out;
   out << location.x * location.y;
@@ -117,7 +113,7 @@ std::string part1(std::istream& in, bool verbose) {
 }
 
 std::string part2(std::istream& in, bool verbose) {
-  auto commands = read_commands(in);
+  auto commands = read_in<Command>(in);
   auto location = execute_commands_steered(commands);
   std::ostringstream out;
   out << location.x * location.y;
