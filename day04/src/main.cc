@@ -9,9 +9,10 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <limits>
+#include <array>
 #include "aoc/parts.h"
 #include "aoc/utils.h"
-#include "aoc/image.h"
 
 using BingoBoard = std::array<int, 25>;
 using BingoMarker = std::array<bool, 25>;
@@ -52,16 +53,12 @@ BingoGame load_game(std::istream& in)
   return game;
 }
 
-void mark_boards(int token, const std::vector<BingoBoard>& boards, std::vector<BingoMarker>* markers)
+void mark_board(int token, const BingoBoard& board, BingoMarker* marker)
 {
-  size_t num_boards = boards.size();
-  std::vector<BingoMarker>& rmarkers = *markers;
-  for (size_t ii = 0; ii != num_boards; ii++) {
-    for (size_t jj = 0; jj != boards[ii].size(); jj++) {
-      if (boards[ii][jj] == token) {
-        rmarkers[ii][jj] = true;
-        break;
-      }
+  for (size_t ii = 0; ii != board.size(); ii++) {
+    if (board[ii] == token) {
+      (*marker)[ii] = true;
+      return;
     }
   }
 }
@@ -94,22 +91,44 @@ int compute_score(int token, const BingoBoard& board, const BingoMarker& marker)
   return token * sum;
 }
 
-int play_game(const BingoGame& game)
-{
-  std::vector<BingoMarker> markers(game.boards.size());
-  size_t max_rounds = game.tokens.size();
+struct GameResult {
+  int token;
+  int rounds;
+  BingoMarker markers;
+};
 
-  for (size_t ii = 0; ii != max_rounds; ii++) {
-    int token = game.tokens[ii];
-    mark_boards(token, game.boards, &markers);
-    for (size_t jj = 0; jj != markers.size(); jj++) {
-      if (check_winner(markers[jj])) {
-        return compute_score(token, game.boards[jj], markers[jj]);
-      }
+GameResult simulate_game(const std::vector<int>& tokens, const BingoBoard& board)
+{
+  GameResult result {};
+  size_t ii = 0;
+  while (!check_winner(result.markers)) {
+    result.token = tokens[ii];
+    mark_board(result.token, board, &result.markers);
+    ii++;
+  }
+
+  result.rounds = static_cast<int>(ii);
+  return result;
+}
+
+int play_game(const BingoGame& game, bool first_winner)
+{
+  std::vector<GameResult> results;
+  for (const auto& board : game.boards) {
+    results.push_back(simulate_game(game.tokens, board));
+  }
+
+  size_t winner = 0;
+  int winner_rounds = (first_winner) ? std::numeric_limits<int>::max() :std::numeric_limits<int>::min();
+  for (size_t ii = 0; ii != results.size(); ii++) {
+    if ((first_winner && results[ii].rounds < winner_rounds) ||
+        (!first_winner && results[ii].rounds > winner_rounds)) {
+      winner = ii;
+      winner_rounds = results[ii].rounds;
     }
   }
 
-  return -1;
+  return compute_score(results[winner].token, game.boards[winner], results[winner].markers);
 }
 
 namespace aoc {
@@ -117,13 +136,14 @@ namespace aoc {
 std::string part1(std::istream& in, bool verbose) {
   auto game = load_game(in);
   std::ostringstream out;
-  out << play_game(game);
+  out << play_game(game, true);
   return out.str();
 }
 
 std::string part2(std::istream& in, bool verbose) {
+  auto game = load_game(in);
   std::ostringstream out;
-  out << "Not implemented";
+  out << play_game(game, false);
   return out.str();
 }
 
