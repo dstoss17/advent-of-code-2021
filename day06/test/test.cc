@@ -19,14 +19,14 @@ constexpr bool kVerbose = false;
 #endif
 
 TEST(Day06, ExampleOnePartOne) {
-  std::string input = "1122";
+  std::string input = "3,4,3,1,2";
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part1(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part1(in, kVerbose), "5934");
 }
 
 TEST(Day06, ExampleOnePartTwo) {
-  std::string input = "1122";
+  std::string input = "3,4,3,1,2";
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part2(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part2(in, kVerbose), "26984457539");
 }
 
