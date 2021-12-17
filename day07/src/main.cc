@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 #include <cmath>
+#include <numeric>
 #include "aoc/parts.h"
 #include "aoc/utils.h"
 
@@ -25,30 +26,37 @@ std::vector<int> read_positions(std::istream& in)
   return positions;
 }
 
-int find_min_position(std::vector<int> positions)
+int find_median(std::vector<int> positions)
 {
-  int min_pos = -1;
-  int min_sum = std::numeric_limits<int>::max();
-  int max_val = *std::max_element(positions.begin(), positions.end());
-  for (int ii = 0; ii <= max_val; ii++) {
-    // accumulate magnitude
-    int sum = 0;
-    for (int pos : positions) {
-      sum += std::abs(pos);
-    }
+  std::sort(positions.begin(), positions.end());
 
-    if (sum < min_sum) {
-      min_sum = sum;
-      min_pos = ii;
-    }
+  size_t size = positions.size();
+  if (size % 2 == 0) {
+    double median = static_cast<double>(positions[size/2] + positions[size/2 - 1]) / 2.0;
+    return static_cast<int>(std::round(median));
+  }
+  else {
+    return positions[size/2];
+  }
+}
 
-    // subtract 1 from each position
-    for (int& pos : positions) {
-      --pos;
-    }
+int find_mean(std::vector<int> positions)
+{
+  double sum = std::accumulate(positions.begin(), positions.end(), 0.0);
+  return static_cast<int>(std::round(sum / positions.size()));
+}
+
+int compute_fuel_cost(int pos, const std::vector<int>& positions, bool part2)
+{
+  int total_cost = 0;
+  for (int p : positions) {
+    int distance = std::abs(pos - p);
+    int cost = (part2) ? ((distance + 1) * distance) / 2 : distance;
+
+    total_cost += cost;
   }
 
-  return min_pos;
+  return total_cost;
 }
 
 namespace aoc {
@@ -59,14 +67,21 @@ std::string part1(std::istream& in, bool verbose) {
     std::cout << pos;
   }
 
+  int min_pos = find_median(pos);
   std::ostringstream out;
-  out << find_min_position(pos);
+  out << compute_fuel_cost(min_pos, pos, false);
   return out.str();
 }
 
 std::string part2(std::istream& in, bool verbose) {
+  auto pos = read_positions(in);
+  if (verbose) {
+    std::cout << pos;
+  }
+
+  int min_pos = find_mean(pos);
   std::ostringstream out;
-  out << "Not implemented";
+  out << compute_fuel_cost(min_pos, pos, true);
   return out.str();
 }
 

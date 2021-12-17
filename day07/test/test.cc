@@ -23,12 +23,12 @@ std::string example = "16,1,2,0,4,2,7,1,2,14";
 TEST(Day07, ExampleOnePartOne) {
   std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part1(in, kVerbose), "2");
+  EXPECT_EQ(aoc::part1(in, kVerbose), "37");
 }
 
 TEST(Day07, ExampleOnePartTwo) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part2(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part2(in, kVerbose), "168");
 }
 
