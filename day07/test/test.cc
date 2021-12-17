@@ -18,10 +18,12 @@ constexpr bool kVerbose = true;
 constexpr bool kVerbose = false;
 #endif
 
+std::string example = "16,1,2,0,4,2,7,1,2,14";
+
 TEST(Day07, ExampleOnePartOne) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part1(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part1(in, kVerbose), "2");
 }
 
 TEST(Day07, ExampleOnePartTwo) {
