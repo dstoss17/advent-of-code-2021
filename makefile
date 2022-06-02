@@ -25,6 +25,7 @@ CMAKE_BUILD_TYPE := -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
 
 # When configuring a project via this makefile, enable the symlink rules
 CMAKE_OPTIONS := -DENABLE_SYMLINK_RULES=True
+CMAKE_OPTIONS += -DFORCE_COLORED_OUTPUT=True
 
 # Add any user-specified options (configure-time only)
 CMAKE_OPTIONS += $(CMAKE_USER_OPTIONS)
