@@ -11,6 +11,7 @@
 #include <string>
 #include <bitset>
 #include <array>
+#include <algorithm>
 #include "aoc/parts.h"
 #include "aoc/utils.h"
 

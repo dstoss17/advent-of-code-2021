@@ -11,6 +11,7 @@
 #include <string>
 #include <cmath>
 #include <numeric>
+#include <algorithm>
 #include "aoc/parts.h"
 #include "aoc/utils.h"
 

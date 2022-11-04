@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 #include <cmath>
+#include <algorithm>
 #include "aoc/parts.h"
 #include "aoc/utils.h"
 
