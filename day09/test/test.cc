@@ -18,15 +18,21 @@ constexpr bool kVerbose = true;
 constexpr bool kVerbose = false;
 #endif
 
+std::string example = "2199943210\n"
+                      "3987894921\n"
+                      "9856789892\n"
+                      "8767896789\n"
+                      "9899965678";
+
 TEST(Day09, ExampleOnePartOne) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part1(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part1(in, kVerbose), "15");
 }
 
 TEST(Day09, ExampleOnePartTwo) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part2(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part2(in, kVerbose), "1134");
 }
 
