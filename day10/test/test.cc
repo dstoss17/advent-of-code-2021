@@ -36,9 +36,9 @@ TEST(Day10, ExampleOnePartOne) {
 }
 
 TEST(Day10, ExampleOnePartTwo) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part2(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part2(in, kVerbose), "288957");
 }
 
 TEST(Day10, ExampleValidLine) {
