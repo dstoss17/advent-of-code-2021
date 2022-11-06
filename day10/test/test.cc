@@ -18,10 +18,21 @@ constexpr bool kVerbose = true;
 constexpr bool kVerbose = false;
 #endif
 
+std::string example = "[({(<(())[]>[[{[]{<()<>>\n"
+                      "[(()[<>])]({[<{<<[]>>(\n"
+                      "{([(<{}[<>[]}>{[]{[(<()>\n"
+                      "(((({<>}<{<{<>}{[]{[]{}\n"
+                      "[[<[([]))<([[{}[[()]]]\n"
+                      "[{[{({}]{}}([{[{{{}}([]\n"
+                      "{<[[]]>}<{[{[{[]{()[[[]\n"
+                      "[<(<(<(<{}))><([]([]()\n"
+                      "<{([([[(<>()){}]>(<<{{\n"
+                      "<{([{{}}[<[[[<>{}]]]>[]]";
+
 TEST(Day10, ExampleOnePartOne) {
-  std::string input = "1122";
+  std::string input = example;
   std::istringstream in(input);
-  EXPECT_EQ(aoc::part1(in, kVerbose), "Not implemented");
+  EXPECT_EQ(aoc::part1(in, kVerbose), "26397");
 }
 
 TEST(Day10, ExampleOnePartTwo) {
@@ -30,3 +41,12 @@ TEST(Day10, ExampleOnePartTwo) {
   EXPECT_EQ(aoc::part2(in, kVerbose), "Not implemented");
 }
 
+TEST(Day10, ExampleValidLine) {
+  std::string input = "[{}]";
+  EXPECT_EQ(first_invalid(input), ' ');
+}
+
+TEST(Day10, ExampleInvalidLine) {
+  std::string input = "{([(<{}[<>[]}>{[]{[(<()>";
+  EXPECT_EQ(first_invalid(input), '}');
+}

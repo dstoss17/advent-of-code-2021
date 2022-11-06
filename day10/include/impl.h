@@ -8,5 +8,8 @@
 #ifndef ADVENT_OF_CODE_2021_IMPL_H
 #define ADVENT_OF_CODE_2021_IMPL_H
 
+#include <string_view>
+
+char first_invalid(std::string_view line);
 
 #endif // ADVENT_OF_CODE_2021_IMPL_H
